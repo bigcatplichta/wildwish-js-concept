@@ -1,7 +1,5 @@
 // to do when DOM loads
-window.onload = () => {
-    // fetchActiveWishes()
-}
+
 
 /* wish example object
 {
@@ -30,21 +28,23 @@ function addWishToCard(wish) {
     let toy = new Toy(wish.toy)
     
     let carousel = document.getElementById('card-carousel')
-    carousel.appendChild(createWishCard)
-
+    carousel.appendChild(renderWishCard())
+    debugger
     // add all properties to card
     
 }
 
 
 // objects to use
-function createWishCard() {
+function renderWishCard() {
         // TODO: abstract all this repeated code
         let card = document.createElement('div')
         card.setAttribute('class', 'card mb-3')
         
         let header = card.appendChild(document.createElement('h3'))
         header.setAttribute('class', 'card-header')
+        let image = card.appendChild(document.createElement('img'))
+        image.setAttribute('style', 'height: 200px; width: 100%; display: block;')
        
         let body1 = card.appendChild(document.createElement('div'))
         body1.setAttribute('class', 'card-body')
@@ -69,6 +69,7 @@ function createWishCard() {
 
         let button = card.appendChild(document.createElement('button'))
         button.setAttribute('class', 'btn btn-primary')
+        button.innerHTML = 'Donate'
 
         let footer = card.appendChild(document.createElement('div'))
         footer.setAttribute('class', 'card-footer text-muted')
@@ -105,13 +106,16 @@ class Animal {
 
 // fetch functions
 function fetchActiveWishes() {
-    fetch('http://localhost:3000/wishes/active')
+    return fetch('http://localhost:3000/wishes/active')
     .then(resp => resp.json())
     .then(wishes => {
+      
         wishes.forEach(wish => {
             addWishToCard(wish)
         })
     })
 }
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    fetchActiveWishes()
+})

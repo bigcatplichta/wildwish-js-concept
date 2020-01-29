@@ -25,34 +25,62 @@ window.onload = () => {
 
 
 function addWishToCard(wish) {
-    // create animal and toy objects
+    // create some objects to work with
     let animal = new Animal(wish.animal)
     let toy = new Toy(wish.toy)
     
-    // create card element
-    function wishCard() {
-        let card = document.createElement('div').setAttribute('class', 'card mb-3')
-        this.header = card.appendChild(document.createElement('h3').setAttribute('class', 'card-header'))
-        this.body1 = card.appendChild(document.createElement('div').setAttribute('class', 'card-body'))
-        this.title = body1.appendChild(document.createElement('h5'))
-        this.subtitle = body1.appendChild(document.createElement('h6'))
-        this.body2 = card.appendChild(document.createElement('div').setAttribute('class', 'card-body'))
-        this.para1 = body2.appendChild(document.createElement('p'))
-        this.para2 = body2.appendChild(document.createElement('p').setAttribute('class', 'card-text'))
-        this.progress = body2.appendChild(document.createElement('div').setAttribute('class', 'progress'))
-        this.progress_bar = progress.appendChild(document.createElement('div').setAttribute('class', 'progress-bar'))
-        this.progress_text = progress.appendChild(document.createElement('p').setAttribute('class', 'card-text'))
-        this.button = card.appendChild(document.createElement('button').setAttribute('class', 'btn btn-primary'))
-        this.footer = card.appendChild(document.createElement('div').setAttribute('class', 'card-footer text-muted'))
-        this.link = footer.appendChild(document.createElement('a').setAttribute('class', 'card-link'))
-    }
+    // let carousel = document.getElementById('card-carousel')
+    // carousel.appendChild(new wishCard)
+
     // add all properties to card
     
 }
 
 
-// wishes and animals as objects
+// objects to use
+function wishCard() {
+    
+        let card = document.createElement('div')
+        card.setAttribute('class', 'card mb-3')
+        
+        let header = card.appendChild(document.createElement('h3'))
+        header.setAttribute('class', 'card-header')
+       
+        let body1 = card.appendChild(document.createElement('div'))
+        body1.setAttribute('class', 'card-body')
 
+        let title = body1.appendChild(document.createElement('h5'))
+
+        let subtitle = body1.appendChild(document.createElement('h6'))
+
+        let body2 = card.appendChild(document.createElement('div'))
+        body2.setAttribute('class', 'card-body')
+
+        let para1 = body2.appendChild(document.createElement('p'))
+
+        let para2 = body2.appendChild(document.createElement('p'))
+        para2.setAttribute('class', 'card-text')
+
+        let progress = body2.appendChild(document.createElement('div'))
+        progress.setAttribute('class', 'progress')
+
+        let progress_bar = progress.appendChild(document.createElement('div'))
+        progress_bar.setAttribute('class', 'progress-bar')
+
+        let progress_text = progress.appendChild(document.createElement('p'))
+        progress_text.setAttribute('class', 'card-text')
+
+        let button = card.appendChild(document.createElement('button'))
+        button.setAttribute('class', 'btn btn-primary')
+
+        let footer = card.appendChild(document.createElement('div'))
+        footer.setAttribute('class', 'card-footer text-muted')
+
+        let link = footer.appendChild(document.createElement('a'))
+        link.setAttribute('class', 'card-link')
+
+        return card
+}
 class Toy {
     constructor(toy) {
         this.id = toy.id,

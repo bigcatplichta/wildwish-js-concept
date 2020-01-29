@@ -29,8 +29,8 @@ function addWishToCard(wish) {
     let animal = new Animal(wish.animal)
     let toy = new Toy(wish.toy)
     
-    // let carousel = document.getElementById('card-carousel')
-    // carousel.appendChild(new wishCard)
+    let carousel = document.getElementById('card-carousel')
+    carousel.appendChild(createWishCard)
 
     // add all properties to card
     
@@ -38,8 +38,8 @@ function addWishToCard(wish) {
 
 
 // objects to use
-function wishCard() {
-    
+function createWishCard() {
+        // TODO: abstract all this repeated code
         let card = document.createElement('div')
         card.setAttribute('class', 'card mb-3')
         
@@ -48,15 +48,12 @@ function wishCard() {
        
         let body1 = card.appendChild(document.createElement('div'))
         body1.setAttribute('class', 'card-body')
-
-        let title = body1.appendChild(document.createElement('h5'))
-
-        let subtitle = body1.appendChild(document.createElement('h6'))
+        body1.appendChild(document.createElement('h5'))
+        body1.appendChild(document.createElement('h6'))
 
         let body2 = card.appendChild(document.createElement('div'))
         body2.setAttribute('class', 'card-body')
-
-        let para1 = body2.appendChild(document.createElement('p'))
+        body2.appendChild(document.createElement('p'))
 
         let para2 = body2.appendChild(document.createElement('p'))
         para2.setAttribute('class', 'card-text')

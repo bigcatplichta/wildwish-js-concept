@@ -42,11 +42,10 @@ function createWishCard(wish_id) {
     button.innerHTML = 'Donate'
     button.addEventListener('click', function() {createDonation(wish_id)})
 
-    let footer = card.appendChild(document.createElement('div'))
-    footer.setAttribute('class', 'card-footer text-muted')
-
-    let link = footer.appendChild(document.createElement('a'))
-    link.setAttribute('class', 'card-link')
+    // let footer = card.appendChild(document.createElement('div'))
+    // footer.setAttribute('class', 'card-footer text-muted')
+    // let link = footer.appendChild(document.createElement('a'))
+    // link.setAttribute('class', 'card-link')
 
     return card
 }
@@ -64,7 +63,8 @@ function createDonation(wishId) {
         body: JSON.stringify({
             donation: {
                 wish_id: wishId,
-                donor_attributes: {id: 1} // set donor_id to 1 for concept test
+                amount: 5.00,
+                donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"} // set donor_id to 1 for concept test
             }
         })
     })

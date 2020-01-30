@@ -54,3 +54,20 @@ body, html {
   border-radius: 0.25rem;
   box-shadow: 0px 0px 20px 0px lightslategrey;
 }
+
+.btn-primary, .btn-primary:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#e72510), color-stop(6%, #D9230F), to(#cb210e));
+  background-image: linear-gradient(#e72510, #D9230F 6%, #cb210e);
+  background-repeat: no-repeat;
+  -webkit-filter: none;
+  filter: none;
+  border: 1px solid #ba1e0d;
+  align-self: center;
+  min-width: 180;
+  margin-bottom: inherit;
+}
+
+.mb-3, .my-3 {
+  margin-bottom: 1rem !important;
+  max-width: 320;
+}

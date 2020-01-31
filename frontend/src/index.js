@@ -110,7 +110,7 @@ class Wish {
         let card = document.getElementById(`${this.id}`)
         card.querySelector('h3').innerHTML = this.animal.name
         card.querySelector('h5').innerHTML = this.animal.species
-        card.querySelector('h6').innerHTML = "TODO: Insert Location Info"
+        card.querySelector('h6').innerHTML = this.animal.location
         card.querySelector('div.toy-info > p:nth-of-type(1)').innerHTML = `<b>Enrichment:</b> ${this.toy.name}`
 
         this.updateWishProgress()

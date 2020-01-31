@@ -43,11 +43,14 @@ function createActiveWishCard(wish) {
     button.innerHTML = 'Donate'
     button.addEventListener('click', function() {createDonation(wish)})
 
-    // let footer = card.appendChild(document.createElement('div'))
-    // footer.setAttribute('class', 'card-footer text-muted')
-    // let link = footer.appendChild(document.createElement('a'))
-    // link.setAttribute('class', 'card-link')
-
+    let footer = card.appendChild(document.createElement('div'))
+    footer.setAttribute('class', 'card-footer text-muted')
+    
+    let reset_button = footer.appendChild(document.createElement('button'))
+    reset_button.setAttribute('class', 'btn btn-link')
+    reset_button.innerHTML = 'Reset'
+    reset_button.addEventListener('click', function() {wish.reset_donations()})
+    
     return card
 }
 

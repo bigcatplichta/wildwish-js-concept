@@ -37,7 +37,7 @@ function createActiveWishCard(wish) {
 
     let button = card.appendChild(document.createElement('button'))
     button.setAttribute('class', 'btn btn-primary')
-    button.innerHTML = 'DONATE $5'
+    button.innerHTML = 'Donate'
     button.addEventListener('click', function() {openDonateDialog(wish)})
 
     let footer = card.appendChild(document.createElement('div'))
@@ -145,10 +145,11 @@ class Wish {
 
 function openDonateDialog(wish) {
     console.log("Donate button clicked")
-    let modal = new Modal(wish)
+    let modal = new DonationModal(wish)
     modal.main.style.display = "block"
 }
-class Modal {
+
+class DonationModal {
     constructor(wish) {
         // declare properties
         let self = this
@@ -184,7 +185,12 @@ class Modal {
         this.body.innerHTML = `${wish.animal.name} is getting a ${wish.toy.name}. ` + wish.toy.description
     }
 
-    createDonation(wish, donation_amount = 5) {
+    createDonation(wish) {
+        // get email and value
+        let donorEmail = document.getElementById('donorEmailInput').value
+        let donationValue = document.querySelector('input[name="donationAmount"]:checked').value
+
+
         // send POST request to server to create donation
         fetch('http://localhost:3000/donations', {
             method: 'POST',
@@ -195,8 +201,8 @@ class Modal {
             body: JSON.stringify({
                 donation: {
                     wish_id: wish.id,
-                    amount: donation_amount,
-                    donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"}
+                    amount: donationValue,
+                    donor_attributes: {email: donorEmail}
                 }
             })
         })
@@ -204,7 +210,7 @@ class Modal {
         .then(donation => console.log(`Made donation for $${donation.amount}.`))
         
         // render display of progress bar
-        wish.current_funding += donation_amount
+        wish.current_funding += donationValue
         wish.updateWishProgress()
     }
     

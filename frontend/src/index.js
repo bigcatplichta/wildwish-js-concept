@@ -160,10 +160,20 @@ class Modal {
         this.setTitle(wish)
         this.setBody(wish)
 
+        // create event listeners for buttons
         this.donateButton = this.main.querySelector('.btn.btn-primary').addEventListener(
             'click', function() {self.createDonation(wish)})
         this.closeButton = this.main.querySelector('.btn.btn-secondary').addEventListener(
             'click', function() {self.close()})
+        this.closeSpan = this.main.querySelector('.close').addEventListener(
+            'click', function() {self.close()})
+
+        // clicking anywhere other than the modal window will close the modal (do I want this?)
+        window.onclick = function(event) {
+            if (event.target == self.main) {
+                self.main.style.display = "none";
+            }
+        }
     }
 
     setTitle(wish) {

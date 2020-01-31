@@ -24,6 +24,7 @@ function createActiveWishCard(wish) {
     
     let para2 = body2.appendChild(document.createElement('p'))
     para2.setAttribute('class', 'card-text')
+    para2.style.textAlign = "right"
 
     let progress = body2.appendChild(document.createElement('div'))
     progress.setAttribute('class', 'progress')

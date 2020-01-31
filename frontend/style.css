@@ -86,6 +86,10 @@ body, html {
   margin: auto;
 }
 
+.toy-info {
+  width: 100%;
+}
+
 @media screen and (max-width: 600px) {
   .mb-3 {
     width: 100%;

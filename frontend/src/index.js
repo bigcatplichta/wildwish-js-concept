@@ -150,14 +150,28 @@ function openDonateDialog(wish) {
 }
 class Modal {
     constructor(wish) {
+        // declare properties
         let self = this
         this.main = document.getElementById('donate-modal')
         this.title = this.main.querySelector('.modal-title')
         this.body = this.main.querySelector('.modal-body')
+        
+        // set properties dynamically to wish properties
+        this.setTitle(wish)
+        this.setBody(wish)
+
         this.donateButton = this.main.querySelector('.btn.btn-primary').addEventListener(
             'click', function() {self.createDonation(wish)})
         this.closeButton = this.main.querySelector('.btn.btn-secondary').addEventListener(
             'click', function() {self.close()})
+    }
+
+    setTitle(wish) {
+        this.title.innerHTML = `Donate to ${wish.animal.name}`
+    }
+
+    setBody(wish) {
+        this.body.innerHTML = `${wish.animal.name} is getting a ${wish.toy.name}. ` + wish.toy.description
     }
 
     createDonation(wish, donation_amount = 5) {

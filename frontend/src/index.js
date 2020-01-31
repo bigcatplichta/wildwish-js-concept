@@ -3,6 +3,8 @@ const DEFAULT_IMAGE = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%
 
 function createActiveWishCard(wish) {
     // TODO: abstract all this repeated code or just put this whole function somewhere else
+    // I hate this function and should probably comment it more to know what each element is for
+    
     let card = document.createElement('div')
     card.setAttribute('class', 'card mb-3')
     card.setAttribute('id', `${wish.id}`)
@@ -127,7 +129,7 @@ class Wish {
             body: JSON.stringify({
                 donation: {
                     wish_id: this.id,
-                    amount: 5.00,
+                    amount: donation_amount,
                     donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"}
                 }
             })

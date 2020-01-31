@@ -122,30 +122,6 @@ class Wish {
         this.updateWishProgress()
     }
 
-    createDonation(donation_amount = 5) {
-        // send POST request to server to create donation
-        fetch('http://localhost:3000/donations', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                donation: {
-                    wish_id: this.id,
-                    amount: donation_amount,
-                    donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"}
-                }
-            })
-        })
-        .then(resp => resp.json())
-        .then(donation => console.log(`Made donation for $${donation.amount}.`))
-        
-        // render display of progress bar
-        this.current_funding += donation_amount
-        this.updateWishProgress()
-    }
-
     reset_donations() {
         // for display rendering
         this.current_funding = 0
@@ -179,11 +155,34 @@ class Modal {
         this.title = this.main.querySelector('.modal-title')
         this.body = this.main.querySelector('.modal-body')
         this.donateButton = this.main.querySelector('.btn.btn-primary').addEventListener(
-            'click', function() {wish.createDonation()})
+            'click', function() {self.createDonation(wish)})
         this.closeButton = this.main.querySelector('.btn.btn-secondary').addEventListener(
             'click', function() {self.close()})
     }
 
+    createDonation(wish, donation_amount = 5) {
+        // send POST request to server to create donation
+        fetch('http://localhost:3000/donations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                donation: {
+                    wish_id: wish.id,
+                    amount: donation_amount,
+                    donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"}
+                }
+            })
+        })
+        .then(resp => resp.json())
+        .then(donation => console.log(`Made donation for $${donation.amount}.`))
+        
+        // render display of progress bar
+        wish.current_funding += donation_amount
+        wish.updateWishProgress()
+    }
     
 
     close() {

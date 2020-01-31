@@ -60,12 +60,11 @@ function renderActiveWishes() {
     .then(wishes => {
       
         wishes.forEach(wish => {
-            addWishToCard(wish)
+            w = new Wish(wish),
+            w.addWishToCard()
         })
     })
 }
-
-
 
 function updateWishes() {
     // first remove ALL wishes from DOM 
@@ -76,20 +75,7 @@ function updateWishes() {
     renderActiveWishes()
 
 }
-// TODO: add this function to wish class
-function addWishToCard(w) {
-    let wish = new Wish(w)
-    let carousel = document.getElementById('card-carousel')
-    carousel.appendChild(createActiveWishCard(wish))
-    
-    let card = document.getElementById(`${wish.id}`)
-    card.querySelector('h3').innerHTML = wish.animal.name
-    card.querySelector('h5').innerHTML = wish.animal.species
-    card.querySelector('h6').innerHTML = "TODO: Insert Location Info"
-    card.querySelector('div.card-body > p').innerHTML = `<b>Enrichment:</b> ${wish.toy.name}`
 
-    wish.updateWishProgress()
-}
 
 class Wish {
     constructor(wish) {
@@ -114,6 +100,20 @@ class Wish {
 
         // update progress bar percent
         progressBar.style.width = percent
+    }
+
+    addWishToCard() {
+        
+        let carousel = document.getElementById('card-carousel')
+        carousel.appendChild(createActiveWishCard(this))
+        
+        let card = document.getElementById(`${this.id}`)
+        card.querySelector('h3').innerHTML = this.animal.name
+        card.querySelector('h5').innerHTML = this.animal.species
+        card.querySelector('h6').innerHTML = "TODO: Insert Location Info"
+        card.querySelector('div.card-body > p').innerHTML = `<b>Enrichment:</b> ${this.toy.name}`
+
+        this.updateWishProgress()
     }
 
     createDonation(donation_amount = 5) {

@@ -161,6 +161,14 @@ class Wish {
     }
 }
 
+const RESET = document.getElementById('reset-active-wishes')
+RESET.addEventListener('click', function() {resetAllWishes()})
+
+function resetAllWishes() {
+    fetch('http://localhost:3000/wishes/reset_active_wishes')
+    updateWishes()
+}
+
 window.onload = () => {
     renderActiveWishes()
 }

@@ -65,8 +65,6 @@ function renderActiveWishes() {
     })
 }
 
-// function to create donation
-// Parameters: {"donation"=>{"wish_id"=>421, donor_attributes: [:id, :first_name, :last_name, :email]}}
 function createDonation(wish, donation_amount = 5) {
     // send POST request to server to create donation
     fetch('http://localhost:3000/donations', {
@@ -140,24 +138,23 @@ class Wish {
         progressBar.style.width = percent
     }
 
-    
-}
-
-class Toy {
-    constructor(toy) {
-        this.id = toy.id,
-        this.name = toy.name,
-        this.description = toy.description,
-        this.cost = toy.cost
+    reset_donations() {
+        // for display rendering
+        this.current_funding = 0
+        this.updateWishProgress()
+        
+        // make server request to reset donations
+        fetch(`http://localhost:3000/wishes/${this.id}/reset_donations`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                wish: {id: this.id}
+            })
+        })
+        .then(resp => resp.json())
+        .then(wish => console.log(`Reset donations for Wish ${wish.id}`))
     }
 }
-
-class Animal {
-    constructor(animal) {
-        this.id = animal.id
-        this.name = animal.name,
-        this.species = animal.species
-    }
-}
-
-

@@ -188,8 +188,7 @@ class DonationModal {
     createDonation(wish) {
         // get email and value
         let donorEmail = document.getElementById('donorEmailInput').value
-        let donationValue = document.querySelector('input[name="donationAmount"]:checked').value
-
+        let donationValue = parseInt(document.querySelector('input[name="donationAmount"]:checked').value, 10)
 
         // send POST request to server to create donation
         fetch('http://localhost:3000/donations', {

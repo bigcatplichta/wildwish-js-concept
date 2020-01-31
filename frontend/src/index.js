@@ -40,8 +40,8 @@ function createActiveWishCard(wish) {
 
     let button = card.appendChild(document.createElement('button'))
     button.setAttribute('class', 'btn btn-primary')
-    button.innerHTML = 'Donate'
-    button.addEventListener('click', function() {createDonation(wish)})
+    button.innerHTML = 'DONATE $5'
+    button.addEventListener('click', function() {wish.createDonation()})
 
     let footer = card.appendChild(document.createElement('div'))
     footer.setAttribute('class', 'card-footer text-muted')
@@ -65,29 +65,7 @@ function renderActiveWishes() {
     })
 }
 
-function createDonation(wish, donation_amount = 5) {
-    // send POST request to server to create donation
-    fetch('http://localhost:3000/donations', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            donation: {
-                wish_id: wish.id,
-                amount: 5.00,
-                donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"} // set donor_id to 1 for concept test
-            }
-        })
-    })
-    .then(resp => resp.json())
-    .then(donation => console.log(`Made donation for ${donation.amount}.`))
-    
-    // render display of progress bar
-    wish.current_funding += donation_amount
-    wish.updateWishProgress()
-}
+
 
 function updateWishes() {
     // first remove ALL wishes from DOM 
@@ -136,6 +114,30 @@ class Wish {
 
         // update progress bar percent
         progressBar.style.width = percent
+    }
+
+    createDonation(donation_amount = 5) {
+        // send POST request to server to create donation
+        fetch('http://localhost:3000/donations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                donation: {
+                    wish_id: this.id,
+                    amount: 5.00,
+                    donor_attributes: {id: 1, first_name: "John", last_name: "Doe", email: "test@test.com"}
+                }
+            })
+        })
+        .then(resp => resp.json())
+        .then(donation => console.log(`Made donation for $${donation.amount}.`))
+        
+        // render display of progress bar
+        this.current_funding += donation_amount
+        this.updateWishProgress()
     }
 
     reset_donations() {

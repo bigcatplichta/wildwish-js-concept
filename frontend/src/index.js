@@ -4,7 +4,7 @@ const DEFAULT_IMAGE = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%
 function createActiveWishCard(wish) {
     // TODO: abstract all this repeated code or just put this whole function somewhere else
     // I hate this function and should probably comment it more to know what each element is for
-    
+
     let card = document.createElement('div')
     card.setAttribute('class', 'card mb-3')
     card.setAttribute('id', `${wish.id}`)
@@ -38,7 +38,7 @@ function createActiveWishCard(wish) {
     let button = card.appendChild(document.createElement('button'))
     button.setAttribute('class', 'btn btn-primary')
     button.innerHTML = 'DONATE $5'
-    button.addEventListener('click', function() {wish.createDonation()})
+    button.addEventListener('click', function() {openDonateDialog(wish)})
 
     let footer = card.appendChild(document.createElement('div'))
     footer.setAttribute('class', 'card-footer text-muted')
@@ -73,6 +73,10 @@ function updateWishes() {
 
 }
 
+function resetAllWishes() {
+    fetch('http://localhost:3000/wishes/reset_active_wishes')
+    updateWishes()
+}
 
 class Wish {
     constructor(wish) {
@@ -163,13 +167,32 @@ class Wish {
     }
 }
 
+function openDonateDialog(wish) {
+    console.log("Donate button clicked")
+    let modal = new Modal(wish)
+    modal.main.style.display = "block"
+}
+class Modal {
+    constructor(wish) {
+        let self = this
+        this.main = document.getElementById('donate-modal')
+        this.title = this.main.querySelector('.modal-title')
+        this.body = this.main.querySelector('.modal-body')
+        this.donateButton = this.main.querySelector('.btn.btn-primary').addEventListener(
+            'click', function() {wish.createDonation()})
+        this.closeButton = this.main.querySelector('.btn.btn-secondary').addEventListener(
+            'click', function() {self.close()})
+    }
+
+    
+
+    close() {
+        this.main.style.display = "none"
+    }
+}
+
 const RESET = document.getElementById('reset-active-wishes')
 RESET.addEventListener('click', function() {resetAllWishes()})
-
-function resetAllWishes() {
-    fetch('http://localhost:3000/wishes/reset_active_wishes')
-    updateWishes()
-}
 
 window.onload = () => {
     renderActiveWishes()

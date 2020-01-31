@@ -19,8 +19,9 @@ function createActiveWishCard(wish) {
     body1.appendChild(document.createElement('h6'))
 
     let body2 = card.appendChild(document.createElement('div'))
-    body2.setAttribute('class', 'card-body')
-
+    body2.setAttribute('class', 'card-body toy-info')
+    body2.appendChild(document.createElement('p'))
+    
     let para2 = body2.appendChild(document.createElement('p'))
     para2.setAttribute('class', 'card-text')
 
@@ -30,9 +31,6 @@ function createActiveWishCard(wish) {
     let progress_bar = progress.appendChild(document.createElement('div'))
     progress_bar.setAttribute('class', 'progress-bar')
     progress_bar.setAttribute('role', 'progressbar')
-
-    let progress_text = progress.appendChild(document.createElement('p'))
-    progress_text.setAttribute('class', 'card-text')
 
     let button = card.appendChild(document.createElement('button'))
     button.setAttribute('class', 'btn btn-primary')
@@ -93,9 +91,14 @@ class Wish {
         
         let card = document.getElementById(`${this.id}`)
         let progressBar = card.querySelector('.progress-bar')
-
+        let progressText = card.querySelector('div.toy-info > p:nth-of-type(2)')
         // update progress bar percent
         progressBar.style.width = percent
+        if (this.current_funding < this.toy.cost) {
+            progressText.innerHTML = `$${(this.toy.cost - this.current_funding)} left!`
+        } else {
+            progressText.innerHTML = "Fully funded!"
+        }
     }
 
     addWishToCard() {
@@ -107,7 +110,7 @@ class Wish {
         card.querySelector('h3').innerHTML = this.animal.name
         card.querySelector('h5').innerHTML = this.animal.species
         card.querySelector('h6').innerHTML = "TODO: Insert Location Info"
-        card.querySelector('div.card-body > p').innerHTML = `<b>Enrichment:</b> ${this.toy.name}`
+        card.querySelector('div.toy-info > p:nth-of-type(1)').innerHTML = `<b>Enrichment:</b> ${this.toy.name}`
 
         this.updateWishProgress()
     }

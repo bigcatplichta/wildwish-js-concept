@@ -1,12 +1,6 @@
 // constants
 const DEFAULT_IMAGE = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'
-
-// clicking anywhere other than the modal window will close the modal (do I want this?)
-window.onclick = function(event) {
-    if (event.target == self.main) {
-        self.main.style.display = "none";
-    }
-}
+let donateListenerSet
 
 function createActiveWishCard(wish) {
     // TODO: abstract all this repeated code or just put this whole function somewhere else
@@ -152,30 +146,66 @@ class Wish {
 
 function openDonateDialog(wish) {
     console.log("Donate button clicked")
+    
     let modal = new DonationModal(wish)
     modal.main.style.display = "block"
 }
 
+// TODO: move this and the rest of variables to a separate file or something
+let button = document.getElementById('create-donation')
 class DonationModal {
+    
     constructor(wish) {
+        
         // declare properties
         let self = this
         this.main = document.getElementById('donate-modal')
         this.title = this.main.querySelector('.modal-title')
         this.body = this.main.querySelector('.modal-body')
         
-        // set properties dynamically to wish properties
+        // set property values to wish properties
         this.setTitle(wish)
         this.setBody(wish)
+       
+        // create event listener for button
+        this.donateListener = this.createDonation.bind(this, wish)
+        button.addEventListener('click', this.donateListener)
 
-        // create event listeners for buttons
-        // these click handlers are taking a long time to load. How to improve?
-        this.donateButton = this.main.querySelector('.btn.btn-primary').addEventListener(
-            'click', function() {self.createDonation(wish)})
-        this.closeButton = this.main.querySelector('.btn.btn-secondary').addEventListener(
+        // syntax: element.addEventListener('listenerType', clickHandler)
+
+        // Above, 'this.createDonation()' is my click handler, it is saved in 'this.donateListener'
+        // Calling bind on it creates a new function reference. The first argument binds the context as the current 'this' context
+        // The second argument is the parameter that will be passed to the bound function, in this case the click handler 'this.createDonation()'
+        // This gets wrapped inside 'this.donateListener', so this bound function is preserved
+        // 'this.donateListener' can then be referenced later to remove the event listener
+        //
+        // If this click handler was not bound to a new function reference and saved in a pointer to be referenced later,
+        // a new function reference would be created each time we define the click handler to add/remove
+        // The below examples show this:
+        // 
+        // button.addEventListener('click', () => this.createDonation(wish) )   
+        // 
+        // Then, later in a separate method:
+        // button.removeEventListener('click', () => this.createDonation(wish) )  
+        //
+        // The above 'removeEventListener' wouldn't target the listener that was previously added, since the click handlers have separate function references
+        // The context was lost when we jumped to a new method
+        // But if a click handler is created and bound to a new reference then saved in a pointer, we can use that pointer to refer to it later
+        
+        
+        // to close modal
+        // for close button
+        this.main.querySelector('.btn.btn-secondary').addEventListener(
             'click', function() {self.close()})
-        this.closeSpan = this.main.querySelector('.close').addEventListener(
+        // for 'X' at top of modal
+        this.main.querySelector('.close-modal').addEventListener(
             'click', function() {self.close()})
+        // clicking anywhere other than the modal window will close the modal (do I want this?)
+        window.onclick = function(event) {
+            if (event.target == self.main) {
+                self.close()
+            }
+        }
     }
 
     setTitle(wish) {
@@ -186,11 +216,15 @@ class DonationModal {
         this.body.innerHTML = `${wish.animal.name} is getting a ${wish.toy.name}. ` + wish.toy.description
     }
 
+    // click handler
     createDonation(wish) {
+        console.log(wish)
+        
         // get email and value
         let donorEmail = document.getElementById('donorEmailInput').value
         let donationValue = parseInt(document.querySelector('input[name="donationAmount"]:checked').value, 10)
 
+     
         // send POST request to server to create donation
         fetch('http://localhost:3000/donations', {
             method: 'POST',
@@ -213,12 +247,17 @@ class DonationModal {
         wish.current_funding += donationValue
         wish.updateWishProgress()
 
+        
         this.close()
     }
     
 
     close() {
         this.main.style.display = "none"
+
+        // remove the event listener that was previously saved
+        // refer to 'this.donateListener', which holds the previously created click handler 
+        button.removeEventListener('click', this.donateListener)
     }
 }
 

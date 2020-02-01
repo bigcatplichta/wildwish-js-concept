@@ -6,11 +6,17 @@ Donors will be emailed when the animal receives the toy. The receiving zookeeper
 
 This is the first draft concept for the front end. Creating new 'active' wishes will be handled by the backend automatically when a wish is fully funded.
 
-# Resources and starting the server
+# Backend resources and starting the server
 
-This uses resources provided by the Rails 'wildwish-app', located here: https://github.com/bigcatplichta/wildwish-app. Currently, the backend directory is a submodule. This must be running on the server in order to fetch resources. The repo can be downloaded in the the backend directory here, or in it's own separate repo, as long as the server is running. Follow the readme in that repository to get the server spun up.
+This uses resources provided by the Rails 'wildwish-app', located here: https://github.com/bigcatplichta/wildwish-app. Make sure you grab the 'js-concept-backend' branch.
+
+The repo can be downloaded in the the backend directory here, or in it's own separate repo, as long as the server is running. Follow the README in that repository to get the server spun up. 
 
 Run 'rails server' in the backend directory to start the server (or in the root directory of the backend if downloaded as separate repo). Resources can be accessed as an API using RESTful routes ('/animals', '/wishes/active', etc). Current routes that are accessed by this frontend are 'GET /wishes/active', 'POST /donations', 'POST /wishes/:id/reset_donations', and 'GET /wishes/reset_active_wishes'.
+
+# Viewing the frontend
+
+While in the 'frontend' directory, run 'open index.html' in the terminal. 
 
 # Authors
 

@@ -8,7 +8,7 @@ This is the first draft concept for the front end. Creating new 'active' wishes 
 
 # Backend resources and starting the server
 
-This uses resources provided by the Rails 'wildwish-app', located here: https://github.com/bigcatplichta/wildwish-app. Make sure you grab the 'js-concept-backend' branch.
+This uses resources provided by the Rails 'wildwish-app', located here: https://github.com/bigcatplichta/wildwish-app/tree/js-concept-backend. Make sure you grab the 'js-concept-backend' branch.
 
 The repo can be downloaded in the the backend directory here, or in it's own separate repo, as long as the server is running. Follow the README in that repository to get the server spun up. 
 

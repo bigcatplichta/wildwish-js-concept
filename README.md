@@ -18,6 +18,12 @@ Run 'rails server' in the backend directory to start the server (or in the root 
 
 While in the 'frontend' directory, run 'open index.html' in the terminal. 
 
+# Ignore (or constructively critique) the mess 
+
+This was the first time I built something in JavaScript. Most of it was built while learning how to build it at the same time. Some methods were written a certain way because it was working, though looking back at it I would have wanted to build those methods differently (looking at you, 'function createActiveWishCard()'). The code is preserved in its original disorganized state, as it reflects how my brain built it using "system thinking".
+
+I welcome suggestions on improvement, as this concept is being developed into a working web application.
+
 # Authors
 
 Matt Plichta https://github.com/bigcatplichta

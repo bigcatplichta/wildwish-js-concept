@@ -259,7 +259,7 @@ class DonationModal {
 
         // remove the event listener that was previously saved
         // refer to 'this.donateListener', which holds the previously created click handler 
-        // button.removeEventListener('click', this.donateListener)
+        button.removeEventListener('click', this.donateListener)
     }
 }
 

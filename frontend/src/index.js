@@ -152,7 +152,7 @@ function openDonateDialog(wish) {
 }
 
 // TODO: move this and the rest of variables to a separate file or something
-let button = document.getElementById('create-donation')
+const button = document.getElementById('create-donation')
 class DonationModal {
     
     constructor(wish) {
@@ -183,10 +183,10 @@ class DonationModal {
         // a new function reference would be created each time we define the click handler to add/remove
         // The below examples show this:
         // 
-        // button.addEventListener('click', () => this.createDonation(wish) )   
+        // button.addEventListener('click', this.sayHi() )   
         // 
         // Then, later in a separate method:
-        // button.removeEventListener('click', () => this.createDonation(wish) )  
+        // button.removeEventListener('click', () => this.sayHi() )  
         //
         // The above 'removeEventListener' wouldn't target the listener that was previously added, since the click handlers have separate function references
         // The context was lost when we jumped to a new method
@@ -207,6 +207,8 @@ class DonationModal {
             }
         }
     }
+
+    sayHi() {console.log('Hi!')}
 
     setTitle(wish) {
         this.title.innerHTML = `Donate to ${wish.animal.name}`
@@ -257,7 +259,7 @@ class DonationModal {
 
         // remove the event listener that was previously saved
         // refer to 'this.donateListener', which holds the previously created click handler 
-        button.removeEventListener('click', this.donateListener)
+        // button.removeEventListener('click', this.donateListener)
     }
 }
 

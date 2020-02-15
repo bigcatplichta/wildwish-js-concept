@@ -6,6 +6,10 @@ Donors will be emailed when the animal receives the toy. The receiving zookeeper
 
 This is the first draft concept for the front end. Creating new 'active' wishes will be handled by the backend automatically when a wish is fully funded.
 
+# Clone repository 
+
+The backend directory is a submodule. Run `git clone --recursive https://github.com/bigcatplichta/wildwish-js-concept` to ensure everything is cloned correctly.
+
 # Backend resources and starting the server
 
 This uses resources provided by the Rails 'wildwish-app', located here: https://github.com/bigcatplichta/wildwish-app/tree/js-concept-backend. Make sure you grab the 'js-concept-backend' branch.

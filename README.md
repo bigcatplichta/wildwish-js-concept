@@ -16,11 +16,11 @@ This uses resources provided by the Rails 'wildwish-app', located here: https://
 
 The repo can be downloaded in the the backend directory here, or in it's own separate repo, as long as the server is running. Follow the README in that repository to get the server spun up. 
 
-Run 'rails server' in the backend directory to start the server (or in the root directory of the backend if downloaded as separate repo). Resources can be accessed as an API using RESTful routes ('/animals', '/wishes/active', etc). Current routes that are accessed by this frontend are 'GET /wishes/active', 'POST /donations', 'POST /wishes/:id/reset_donations', and 'GET /wishes/reset_active_wishes'.
+Run `rails server` in the backend directory to start the server (or in the root directory of the backend if downloaded as separate repo). Resources can be accessed as an API using RESTful routes ('/animals', '/wishes/active', etc). Current routes that are accessed by this frontend are 'GET /wishes/active', 'POST /donations', 'POST /wishes/:id/reset_donations', and 'GET /wishes/reset_active_wishes'.
 
 # Viewing the frontend
 
-While in the 'frontend' directory, run 'open index.html' in the terminal. 
+While in the 'frontend' directory, run `open index.html` in the terminal. 
 
 # Ignore (or constructively critique) the mess 
 
